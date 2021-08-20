@@ -9,10 +9,9 @@ import string
 import os 
 import re
     
-ng_1_data = []
-with open("D:\\Desktop\\Study\\GitHub\\InterfaksPsuti\\data\\ng.jsonlines", "r", encoding="utf8") as read_file:
-    for line in read_file:
-        ng_1_data.append(json.loads(line))
+
+with open("D:\\Desktop\\Study\\GitHub\\InterfaksPsuti\\data\\dataset_public.json", "r", encoding="utf8") as read_file:
+    ng_1_data = json.load(read_file)
 
 with open ('D:\\Desktop\\Study\\GitHub\\InterfaksPsuti\\data\\stop_ru.txt', 'r', encoding="utf8") as stop_file:
     rus_stops = [word.strip() for word in stop_file.readlines()] 
@@ -118,9 +117,10 @@ def produce_tf_idf_keywords (some_texts, number_of_words):
 
 
 for item in ng_1_data[:10]:
-    print ('Эталонные ключевые слова: ', item['keywords'])
-    print ('Самые частотные слова: ',  keywords_most_frequent_with_stop_and_lemm (item['content'], 6, rus_stops))
+    print ('Эталонные ключевые слова: ', item['title'])
+    print ('Самые частотные слова: ',  keywords_most_frequent_with_stop_and_lemm (item['news'][1]['body'], 6, rus_stops))
     print ()
+
 
 """
 manual_keywords = [] ## сюда запишем все ключевые слова, приписанные вручную
