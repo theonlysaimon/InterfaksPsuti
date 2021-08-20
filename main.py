@@ -27,3 +27,7 @@ print(getSystemInfo())
 
 print("Kizaru top")
 print("Net")
+
+
+
+print("Я держу район, дынь терень день дон")
