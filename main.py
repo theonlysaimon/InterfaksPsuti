@@ -28,3 +28,6 @@ print(getSystemInfo())
 print("Kizaru top")
 print("Net")
 
+
+
+print('Я ненавижу хохлов')
