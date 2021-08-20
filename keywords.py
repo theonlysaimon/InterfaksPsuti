@@ -2,6 +2,11 @@ from itertools import combinations
 from collections import Counter
 import np
 import json
+from pymystem3 import Mystem
+from nltk import FreqDist
+import string
+import os ## работаем с файлами, значит, наверняка понадобится ос
+
 
 ng_1_data = []
 with open("data/ng_1.jsonlines", "r") as read_file:
@@ -51,8 +56,6 @@ def get_kws(text, top=6, window_size=5, random_p=0.1):
         
         if go_random:
             n = np.random.choice(len(vocab))
-        
-        
         ### 
         n = take_step(n, m)
         # записываем узлы, в которых были
@@ -70,20 +73,26 @@ def take_step(n, matrix):
         next_n = np.random.choice(range(rang))
     return next_n
 
-for text in file_texts:
-    print (get_kws (word_tokenize(text))) # функция принимает на вход список слов, а не строку, поэтому так
+extended_punctuation = string.punctuation + '—»«...'
 
-def preprocessing_general (input_text, stoplist):
-    '''функция для предобработки текста; 
-    на вход принимает строку с текстом input_text и список стоп-слов stoplist
-    на выходе чистый список слов output'''
-    ## лемматизируем майстемом и делаем strip каждого слова:
-    output = [word.strip() for word in moi_analizator.lemmatize (input_text)] 
-    ## убираем пунктуацию и стоп-слова:
-    output = [word for word in output if word not in extended_punctuation and word not in stoplist]
-    ## убираем слова, в которых вообще нет буквенных символов:
-    output = [word for word in output if re.search ('[А-ЯЁа-яёA-Za-z]', word) != None]
-    return output
+def passed_filter (some_word, stoplist):
+    some_word = some_word.strip()
+    if some_word in extended_punctuation:
+        return False
+    elif some_word in stoplist:
+        return False
+    elif re.search ('[А-ЯЁа-яёA-Za-z]', some_word) == None:
+        return False
+    return True
 
-for text in file_texts:
-    print (get_kws (preprocessing_general(text, rus_stops)))
+moi_analizator = Mystem()
+
+def keywords_most_frequent_with_stop_and_lemm (some_text, num_most_freq, stoplist):
+    lemmatized_text = [word for word in moi_analizator.lemmatize(some_text.lower()) 
+                       if passed_filter(word, stoplist)]
+    return [word_freq_pair[0] for word_freq_pair in FreqDist(lemmatized_text).most_common(num_most_freq)]
+
+for item in ng_1_data[:10]:
+    print ('Эталонные ключевые слова: ', item['keywords'])
+    print ('Самые частотные слова: ',  keywords_most_frequent_with_stop_and_lemm (item['content'], 6, rus_stops))
+    print ()
