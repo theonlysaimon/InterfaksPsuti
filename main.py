@@ -27,7 +27,3 @@ print(getSystemInfo())
 
 print("Kizaru top")
 print("Net")
-
-
-
-print("/votekick Илья")
