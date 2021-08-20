@@ -1,6 +1,12 @@
 from itertools import combinations
 from collections import Counter
 import np
+import json
+
+ng_1_data = []
+with open("data/ng_1.jsonlines", "r") as read_file:
+    for line in read_file:
+        ng_1_data.append(json.loads(line)) # json.loads считывает строку, в отличие от json.load
 
 def get_kws(text, top=6, window_size=5, random_p=0.1):
 
