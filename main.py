@@ -28,8 +28,3 @@ print(getSystemInfo())
 print("Kizaru top")
 print("Net")
 
-
-
-print("Я держу район, дынь терень день дон")
-
-print ("Я ебу деда не проблема!!!!")
