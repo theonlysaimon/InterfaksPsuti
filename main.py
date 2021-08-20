@@ -27,7 +27,16 @@ print(getSystemInfo())
 
 print("Kizaru top")
 print("Net")
+<<<<<<< HEAD
 
 
 
 print('Я ненавижу хохлов')
+=======
+>>>>>>> 7f0bc10a3f516032ba567be0677aaf6f63db49be
+
+
+
+
+
+помогите
