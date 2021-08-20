@@ -116,6 +116,13 @@ def produce_tf_idf_keywords (some_texts, number_of_words):
         ## печатаем результат
         print([id2word[w] for w in top_words_for_this_text])
 
+
+for item in ng_1_data[:10]:
+    print ('Эталонные ключевые слова: ', item['keywords'])
+    print ('Самые частотные слова: ',  keywords_most_frequent_with_stop_and_lemm (item['content'], 6, rus_stops))
+    print ()
+
+"""
 manual_keywords = [] ## сюда запишем все ключевые слова, приписанные вручную
 full_texts = [] ## сюда тексты
 
@@ -125,3 +132,4 @@ for item in ng_1_data:
 
 produce_tf_idf_keywords (full_texts[:20], 6)
 manual_keywords [:20]
+"""
